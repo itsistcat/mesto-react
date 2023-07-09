@@ -5,7 +5,7 @@ import Main from '../Main/Main.js';
 import Footer from '../Footer/Footer.js';
 
 import PopupWithForm from '../PopupWithForm/PopupWithForm.js';
-import TypeImage from '../TypeImage/TypeImage.js';
+import ImagePopup from '../ImagePopup/ImagePopup.js';
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
@@ -162,7 +162,7 @@ function App() {
         closePopupsOnOutsideClick={closePopupsOnOutsideClick}
       />
 
-      <TypeImage
+      <ImagePopup
         card={selectedCard}
         onClose={closeAllPopups}
         closePopupsOnOutsideClick={closePopupsOnOutsideClick}
