@@ -6,7 +6,7 @@ export default function Main(props) {
   const [userName, setUserName] = useState('');
   const [userDescription, setUserDescription] = useState('');
   const [userAvatar, setUserAvatar] = useState(null);
-  const [cards, renderItems] = useState([]);
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
     Promise.all([api.getUserInfo(), api.getCards()])
@@ -14,7 +14,7 @@ export default function Main(props) {
           setUserName(user.name);
           setUserDescription(user.about);
           setUserAvatar(user.avatar);
-          renderItems(cards);
+          setCards(cards);
       })
 
       .catch((err) => {

@@ -49,27 +49,27 @@ function App() {
     };
   }, [closeAllPopups]);
 
-  useEffect(() => {
-    const closePopupsOnKeyPressEsc = evt => {
-      if (evt.key === 'Escape'
-        && (isEditProfilePopupOpen
-          || isAddPlacePopupOpen
-          || isEditAvatarPopupOpen
-          || isConfirmationDeletePopupOpen
-          || selectedCard)) {
-        closeAllPopups();
-      };
-    };
+  // useEffect(() => {
+  //   const closePopupsOnKeyPressEsc = evt => {
+  //     if (evt.key === 'Escape'
+  //       && (isEditProfilePopupOpen
+  //         || isAddPlacePopupOpen
+  //         || isEditAvatarPopupOpen
+  //         || isConfirmationDeletePopupOpen
+  //         || selectedCard)) {
+  //       closeAllPopups();
+  //     };
+  //   };
 
-    document.addEventListener('keydown', closePopupsOnKeyPressEsc);
-    return () => {
-      document.removeEventListener('keydown', closePopupsOnKeyPressEsc);
-    };
-  }, [isEditProfilePopupOpen,
-    isAddPlacePopupOpen,
-    isEditAvatarPopupOpen,
-    isConfirmationDeletePopupOpen,
-    selectedCard, closeAllPopups]);
+  //   document.addEventListener('keydown', closePopupsOnKeyPressEsc);
+  //   return () => {
+  //     document.removeEventListener('keydown', closePopupsOnKeyPressEsc);
+  //   };
+  // }, [isEditProfilePopupOpen,
+  //   isAddPlacePopupOpen,
+  //   isEditAvatarPopupOpen,
+  //   isConfirmationDeletePopupOpen,
+  //   selectedCard, closeAllPopups]);
 
   return (
     <>
