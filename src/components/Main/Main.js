@@ -1,40 +1,26 @@
-import { useEffect, useState } from "react";
-import { api } from "../../utils/Api.js";
+// import { useEffect, useState } from "react";
+// import { api } from "../../utils/Api.js";
 import Card from "../Card/Card.js";
+import { useContext } from "react";
+//import React from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 
 export default function Main(props) {
-  const [userName, setUserName] = useState('');
-  const [userDescription, setUserDescription] = useState('');
-  const [userAvatar, setUserAvatar] = useState(null);
-  const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getCards()])
-      .then(([user, cards]) => {
-          setUserName(user.name);
-          setUserDescription(user.about);
-          setUserAvatar(user.avatar);
-          setCards(cards);
-      })
-
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      })
-  }, []);
+  const currentUser = useContext(CurrentUserContext);
 
   return (
     <main className="content">
 
       <section className="profile">
         <div className="profile__container-avatar">
-          <img src={userAvatar} alt="Аватарка" className="profile__avatar"
+          <img src={currentUser.avatar} alt="Аватарка" className="profile__avatar"
             onClick={props.onEditAvatar} />
         </div>
         <div className="profile__info">
-          <h1 className="profile__title">{userName}</h1>
+          <h1 className="profile__title">{currentUser.name}</h1>
           <button type="button" aria-label="редактировать"
             className="profile__edit-btn" onClick={props.onEditProfile} />
-          <p className="profile__subtitle">{userDescription}</p>
+          <p className="profile__subtitle">{currentUser.about}</p>
         </div>
         <button type="button" aria-label="добавить"
           className="profile__add-btn" onClick={props.onAddPlace} />
@@ -42,9 +28,14 @@ export default function Main(props) {
 
       <section className="elements">
         {
-          cards.map((card) => (
-            <Card key={card._id} card={card} 
-            handlePopup={props} />
+          props.cards.map((card) => (
+            <Card 
+            key={card._id} 
+            card={card} 
+            handlePopup={props} 
+            handleCardLike={props}
+            handleCardDelete={props}
+            />
           ))
         }
       </section>

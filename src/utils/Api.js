@@ -20,19 +20,18 @@ class Api {
     }
   }
 
-  // _request(url, options) {
-  //   return fetch(url, options).then(this._checkResponse)
-  // }
+  _request(url, options) {
+    return fetch(url, options).then(this._checkResponse)
+  }
 
   getUserInfo() {
-    return fetch(`${this._url}/users/me`, {
+    return this._request(`${this._url}/users/me`, {
       headers: this._headers
     }) 
-    .then(this._checkResponse);
   }
 
   editUserInfo(name, about) {
-    return fetch(`${this._url}users/me`, {
+    return this._request(`${this._url}users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({ name, about })
@@ -41,7 +40,7 @@ class Api {
 
   // Обновление аватара
   editUserAvatar(avatar) {
-    return fetch(`${this._url}/users/me/avatar`, {
+    return this._request(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({ avatar })
@@ -49,15 +48,14 @@ class Api {
   }
 
   getCards() {
-    return fetch(`${this._url}cards`, {
+    return this._request(`${this._url}cards`, {
       headers: this._headers
     })
-    .then(this._checkResponse);
   }
 
   // Добавление новой карточки в галерею
   addNewCards(name, link) {
-    return fetch(`${this._url}/cards`, {
+    return this._request(`${this._url}/cards`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({ name, link })
@@ -66,26 +64,24 @@ class Api {
   }
   // Удаление карточки
   deleteCards(id) {
-    return fetch(`${this._url}/cards/${id}`, {
+    return this._request(`${this._url}/cards/${id}`, {
       method: 'DELETE',
       headers: this._headers
     })
   }
 
-  // Добавление лайка
-  addLike(id) {
-    return fetch(`${this._url}/cards/${id}/likes`, {
-      method: 'PUT',
-      headers: this._headers
-    })
-  }
-
-  // Удаление лайка
-  deleteLike(id) {
-    return fetch(`${this._url}/cards/${id}/likes`, {
-      method: 'DELETE',
-      headers: this._headers
-    })
+  changeLikeCardStatus(id, isLiked) {
+    if (!isLiked) {
+      return this._request(`${this._url}/cards/${id}/likes`, {
+        method: 'PUT',
+        headers: this._headers
+      })
+    } else {
+      return this._request(`${this._url}/cards/${id}/likes`, {
+        method: 'DELETE',
+        headers: this._headers
+      })
+    }
   }
 }
 export const api = new Api(apiOptions);

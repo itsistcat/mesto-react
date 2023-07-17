@@ -2,7 +2,7 @@ import useClosePopupsOnKeyPressEsc from '../hooks/useClosePopupsOnKeyPressEsc'
 
 export default function ImagePopup(props) {
     const { card, onClose, closePopupsOnOutsideClick } = props;
-    useClosePopupsOnKeyPressEsc(card, onClose);
+    useClosePopupsOnKeyPressEsc(card.link, onClose);
     return (
         <div className={`popup popup_type_image 
         ${Object.keys(card).length !== 0 && 'popup__opened'}`} 
