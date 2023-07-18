@@ -21,9 +21,13 @@ export default function EditAvatarPopup(props) {
         onUpdateAvatar({
             avatar: avatarRef.current.value
         });
-
-        evt.target.reset();
     };
+
+    useEffect(() => {
+        if (isOpened) {
+          avatarRef.current.value = '';
+        };
+      }, [isOpened, avatarRef]);
 
     return (
         <PopupWithForm popup={{
